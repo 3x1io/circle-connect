@@ -22,23 +22,16 @@ class AccountMeta extends Model
     ];
 
     public $casts = [
-        'value' => 'json'
+        'value' => 'json',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
 }

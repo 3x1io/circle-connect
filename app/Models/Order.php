@@ -30,33 +30,21 @@ class Order extends Model
         'shipping',
     ];
 
-    /**
-     * @return HasMany
-     */
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
 
-    /**
-     * @return string
-     */
     public function total(): string
     {
         return number_format(($this->items()->sum('total') + $this->shipping), 2);

@@ -14,10 +14,12 @@ use TomatoPHP\FilamentLanguageSwitcher\Traits\InteractsWithLanguages;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
     use HasRoles;
+
     use InteractsWithLanguages;
     use InteractsWithNotifications;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

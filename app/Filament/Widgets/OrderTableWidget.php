@@ -4,16 +4,15 @@ namespace App\Filament\Widgets;
 
 use App\Models\Order;
 use App\Models\Product;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms;
 use Filament\Notifications\Notification;
 use Filament\Tables;
-use Filament\Forms;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 class OrderTableWidget extends BaseWidget
 {
-    protected static ?string $heading = "Orders";
+    protected static ?string $heading = 'Orders';
 
     protected int | string | array $columnSpan = 'full';
 
@@ -24,15 +23,15 @@ class OrderTableWidget extends BaseWidget
                 Order::query()->where('account_id', session('model_id'))
             )
             ->groups([
-                Tables\Grouping\Group::make('status')
+                Tables\Grouping\Group::make('status'),
             ])
             ->filtersLayout(Tables\Enums\FiltersLayout::Modal)
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->searchable()
                     ->options([
-                        "pending" => "Pending",
-                        "success" => "Success",
+                        'pending' => 'Pending',
+                        'success' => 'Success',
                     ]),
             ])
             ->actions([
@@ -40,15 +39,15 @@ class OrderTableWidget extends BaseWidget
                     ->icon('heroicon-s-printer')
                     ->openUrlInNewTab()
                     ->iconButton(),
-                Tables\Actions\Action::make("edit")
-                    ->fillForm(fn($record) => array_merge($record->toArray(), ["items" => $record->items->toArray()]))
+                Tables\Actions\Action::make('edit')
+                    ->fillForm(fn ($record) => array_merge($record->toArray(), ['items' => $record->items->toArray()]))
                     ->form([
                         Forms\Components\Grid::make([
                             'sm' => 1,
                             'lg' => 2,
                         ])->schema([
                             Forms\Components\TextInput::make('uuid')
-                                ->disabled(fn(Order $order)=> $order->exists)
+                                ->disabled(fn (Order $order) => $order->exists)
                                 ->default(fn () => \Illuminate\Support\Str::random(8))
                                 ->required()
                                 ->maxLength(255),
@@ -56,8 +55,8 @@ class OrderTableWidget extends BaseWidget
                                 ->searchable()
                                 ->preload()
                                 ->options([
-                                    "pending" => "Pending",
-                                    "success" => "Success",
+                                    'pending' => 'Pending',
+                                    'success' => 'Success',
                                 ])
                                 ->required()
                                 ->default('pending'),
@@ -71,11 +70,11 @@ class OrderTableWidget extends BaseWidget
                                         ->live()
                                         ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set) {
                                             $product = Product::find($get('product_id'));
-                                            if($product){
+                                            if ($product) {
                                                 $set('price', $product->price);
                                                 $set('discount', $product->discount);
                                                 $set('vat', $product->vat);
-                                                $set('total', (($product->price+$product->vat) - $product->discount)*$get('quantity'));
+                                                $set('total', (($product->price + $product->vat) - $product->discount) * $get('quantity'));
                                             }
                                         })
                                         ->columnSpan(3),
@@ -84,11 +83,11 @@ class OrderTableWidget extends BaseWidget
                                         ->live()
                                         ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set) {
                                             $product = Product::find($get('product_id'));
-                                            if($product){
+                                            if ($product) {
                                                 $set('price', $product->price);
                                                 $set('discount', $product->discount);
                                                 $set('vat', $product->vat);
-                                                $set('total', (($product->price+$product->vat) - $product->discount)*$get('quantity'));
+                                                $set('total', (($product->price + $product->vat) - $product->discount) * $get('quantity'));
                                             }
                                         })
                                         ->default(1)
@@ -120,14 +119,13 @@ class OrderTableWidget extends BaseWidget
                                     $total = 0;
                                     $discount = 0;
                                     $vat = 0;
-                                    foreach ($items as $orderItem){
+                                    foreach ($items as $orderItem) {
                                         $product = Product::find($orderItem['product_id']);
-                                        if($product){
-                                            $total += ((($product->price+$product->vat)-$product->discount)*$orderItem['quantity']);
-                                            $discount += ($product->discount*$orderItem['quantity']);
-                                            $vat +=  ($product->vat*$orderItem['quantity']);
+                                        if ($product) {
+                                            $total += ((($product->price + $product->vat) - $product->discount) * $orderItem['quantity']);
+                                            $discount += ($product->discount * $orderItem['quantity']);
+                                            $vat += ($product->vat * $orderItem['quantity']);
                                         }
-
 
                                     }
                                     $set('total', $total);
@@ -140,14 +138,14 @@ class OrderTableWidget extends BaseWidget
                                 ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set) {
                                     $items = $get('items');
                                     $total = 0;
-                                    foreach ($items as $orderItem){
+                                    foreach ($items as $orderItem) {
                                         $product = Product::find($orderItem['product_id']);
-                                        if($product){
-                                            $total += ((($product->price+$product->vat)-$product->discount)*$orderItem['quantity']);
+                                        if ($product) {
+                                            $total += ((($product->price + $product->vat) - $product->discount) * $orderItem['quantity']);
                                         }
                                     }
 
-                                    $set('total', $total+(int)$get('shipping'));
+                                    $set('total', $total + (int) $get('shipping'));
                                 })
                                 ->numeric()
                                 ->default(0),
@@ -165,40 +163,39 @@ class OrderTableWidget extends BaseWidget
                                 ->default(0),
                         ]),
                     ])
-                    ->action(function (array $data, $record){
-                        $order= $record;
+                    ->action(function (array $data, $record) {
+                        $order = $record;
 
                         foreach ($data['items'] as $item) {
                             $product = Product::find($item['product_id']);
-                            if($product->stock >= $item['quantity']){
+                            if ($product->stock >= $item['quantity']) {
                                 $product->withdraw($item['quantity']);
-                            }
-                            else {
+                            } else {
                                 Notification::make()
                                     ->title('Error')
                                     ->body('Not enough stock for product: ' . $product->name)
                                     ->danger()
                                     ->send();
+
                                 return;
                             }
                         }
 
-                        foreach ($record->items as $oldItems){
+                        foreach ($record->items as $oldItems) {
                             $product = Product::find($oldItems->product_id);
                             $product->deposit($oldItems->quantity);
                             $oldItems->delete();
                         }
 
-
-                        foreach ($data['items'] as $item){
+                        foreach ($data['items'] as $item) {
                             $product = Product::find($item['product_id']);
                             $product->withdraw($item['quantity']);
-                            if($product){
+                            if ($product) {
                                 $item['item'] = $product->name;
                                 $item['price'] = $product->price;
                                 $item['discount'] = $product->discount;
                                 $item['vat'] = $product->vat;
-                                $item['total'] = (($product->price+$product->vat) - $product->discount)*$item['quantity'];
+                                $item['total'] = (($product->price + $product->vat) - $product->discount) * $item['quantity'];
                             }
                             $item['order_id'] = $order->id;
 
@@ -226,12 +223,12 @@ class OrderTableWidget extends BaseWidget
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
-                    ->description(fn($record) => $record->created_at->diffForHumans())
+                    ->description(fn ($record) => $record->created_at->diffForHumans())
                     ->dateTime()
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('uuid')
-                    ->description(fn($record) => $record->type . ' by ' . $record->user?->name)
+                    ->description(fn ($record) => $record->type . ' by ' . $record->user?->name)
                     ->label('UUID')
                     ->sortable()
                     ->searchable(),
@@ -243,7 +240,7 @@ class OrderTableWidget extends BaseWidget
                     ->summarize(Tables\Columns\Summarizers\Sum::make()->money(locale: 'en', currency: 'eur'))
                     ->money(locale: 'en', currency: 'eur')
                     ->color('success')
-                    ->sortable()
+                    ->sortable(),
             ]);
     }
 }

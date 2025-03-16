@@ -5,7 +5,6 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Resources\CategoryResource;
 use App\Filament\Resources\CustomerResource;
-use App\Filament\Resources\DocumentResource;
 use App\Filament\Resources\DocumentTemplateResource;
 use App\Filament\Resources\EmployeeResource;
 use App\Filament\Resources\LeadResource;
@@ -17,8 +16,6 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationBuilder;
-use Filament\Navigation\NavigationItem;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -35,7 +32,6 @@ use TomatoPHP\FilamentDocs\FilamentDocsPlugin;
 use TomatoPHP\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
 use TomatoPHP\FilamentPlugins\FilamentPluginsPlugin;
 use TomatoPHP\FilamentSaasPanel\FilamentSaasTeamsPlugin;
-use TomatoPHP\FilamentSettingsHub\Facades\FilamentSettingsHub;
 use TomatoPHP\FilamentSettingsHub\FilamentSettingsHubPlugin;
 use TomatoPHP\FilamentTranslations\FilamentTranslationsPlugin;
 use TomatoPHP\FilamentTypes\FilamentTypesPlugin;
@@ -53,7 +49,7 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->unsavedChangesAlerts()
             ->sidebarCollapsibleOnDesktop()
-            ->viteTheme("resources/css/app.css")
+            ->viteTheme('resources/css/app.css')
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Slate,
@@ -127,7 +123,7 @@ class AdminPanelProvider extends PanelProvider
         $panel->plugin(FilamentTypesPlugin::make());
         $panel->plugin(FilamentPluginsPlugin::make());
 
-        $panel->navigation(function (NavigationBuilder $builder){
+        $panel->navigation(function (NavigationBuilder $builder) {
             $builder->items(Dashboard::getNavigationItems());
             $builder->items(CustomerResource::getNavigationItems());
             $builder->items(LeadResource::getNavigationItems());
@@ -138,6 +134,7 @@ class AdminPanelProvider extends PanelProvider
 
             return $builder;
         });
+
         return $panel;
     }
 }

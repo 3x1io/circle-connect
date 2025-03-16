@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('type')->nullable()->default('general')->index();
             $table->string('currency')->nullable()->default('EUR');
 
-            //Customer Info
+            // Customer Info
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();

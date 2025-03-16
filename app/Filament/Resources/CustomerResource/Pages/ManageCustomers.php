@@ -14,11 +14,12 @@ class ManageCustomers extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
-                ->mutateFormDataUsing(function(array $data){
+                ->mutateFormDataUsing(function (array $data) {
                     $data['type'] = 'customer';
-                    $data['username'] = $data['email']??$data['phone'];
+                    $data['username'] = $data['email'] ?? $data['phone'];
+
                     return $data;
-                })
+                }),
         ];
     }
 }

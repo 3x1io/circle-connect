@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
@@ -67,14 +64,14 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
                     ->badge()
-                    ->icon(fn(Product $record) => $record->category->icon)
+                    ->icon(fn (Product $record) => $record->category->icon)
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('year')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->description(fn(Product $record) => $record->description)
+                    ->description(fn (Product $record) => $record->description)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable(),
@@ -83,15 +80,15 @@ class ProductResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
                     ->badge()
-                    ->icon("heroicon-o-cube")
-                    ->color(fn(Product $record) => $record->stock > 0 ? 'success' : 'danger')
+                    ->icon('heroicon-o-cube')
+                    ->color(fn (Product $record) => $record->stock > 0 ? 'success' : 'danger')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sku')
                     ->label('SKU')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->description(fn(Product $record) => '('.$record->price . '+' . $record->vat . ' VAT' . ') - ' . $record->discount . ' Discount')
+                    ->description(fn (Product $record) => '(' . $record->price . '+' . $record->vat . ' VAT' . ') - ' . $record->discount . ' Discount')
                     ->money('eur')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

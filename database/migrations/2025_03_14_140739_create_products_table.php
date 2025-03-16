@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('stock')->default(0);
             $table->string('sku')->unique()->index();
 
-            //Price
+            // Price
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 10, 2)->nullable();
             $table->decimal('vat', 10, 2)->nullable();

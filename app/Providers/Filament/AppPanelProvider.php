@@ -23,7 +23,7 @@ class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-         $panel
+        $panel
             ->id('app')
             ->path('app')
             ->colors([

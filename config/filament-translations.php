@@ -46,7 +46,7 @@ return [
         'de' => [
             'label' => 'German',
             'flag' => 'de',
-        ]
+        ],
     ],
 
     /*

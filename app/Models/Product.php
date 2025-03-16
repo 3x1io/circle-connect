@@ -21,30 +21,18 @@ class Product extends Model
         'vat',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * @param int $qty
-     * @return void
-     */
-    public function deposit(int $qty=1): void
+    public function deposit(int $qty = 1): void
     {
         $this->stock += $qty;
         $this->save();
     }
 
-
-    /**
-     * @param int $qty
-     * @return void
-     */
-    public function withdraw(int $qty=1): void
+    public function withdraw(int $qty = 1): void
     {
         $this->stock -= $qty;
         $this->save();

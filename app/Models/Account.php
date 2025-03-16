@@ -6,7 +6,6 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
-use Filament\Panel\Concerns\HasTenancy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -39,14 +38,15 @@ use TomatoPHP\FilamentSaasPanel\Traits\InteractsWithTenant;
  * @property string $created_at
  * @property string $updated_at
  */
-class Account extends Authenticatable implements HasAvatar, HasMedia, FilamentUser, HasTenants
+class Account extends Authenticatable implements FilamentUser, HasAvatar, HasMedia, HasTenants
 {
     use HasFactory;
+    use HasTeams;
     use InteractsWithMedia;
     use InteractsWithTenant;
     use Notifiable;
     use SoftDeletes;
-    use HasTeams;
+
     /**
      * @var array
      */
@@ -104,9 +104,6 @@ class Account extends Authenticatable implements HasAvatar, HasMedia, FilamentUs
         return true;
     }
 
-    /**
-     * @return HasMany
-     */
     public function accountMeta(): HasMany
     {
         return $this->hasMany(AccountMeta::class);
@@ -118,50 +115,50 @@ class Account extends Authenticatable implements HasAvatar, HasMedia, FilamentUs
     public function dataFields(): array
     {
         return [
-            "address.company",
-            "address.salutation",
-            "address.title",
-            "address.first_name",
-            "address.last_name",
-            "address.street",
-            "address.number",
-            "address.postcode",
-            "address.city",
-            "address.country",
-            "address.letter_salutation",
-            "payments.payment_type",
-            "payments.id_number",
-            "payments.direct_debit",
-            "payments.bank_name",
-            "payments.account_owner",
-            "payments.iban",
-            "payments.bic",
-            "payments.card_type",
-            "payments.credit_card_owner",
-            "payments.credit_card_number",
-            "payments.credit_card_expiry",
-            "payments.credit_card_cvc",
-            "communication.tel_direct",
-            "communication.tel_mobile",
-            "communication.tel_secretary",
-            "communication.fax_number",
-            "communication.email",
-            "additional.important",
-            "additional.name_of_secretary",
-            "additional.date_of_birth",
-            "additional.evaluation",
-            "status.price_per_bottle_max",
-            "status.items",
-            "cancellation.canceling_reasons"
+            'address.company',
+            'address.salutation',
+            'address.title',
+            'address.first_name',
+            'address.last_name',
+            'address.street',
+            'address.number',
+            'address.postcode',
+            'address.city',
+            'address.country',
+            'address.letter_salutation',
+            'payments.payment_type',
+            'payments.id_number',
+            'payments.direct_debit',
+            'payments.bank_name',
+            'payments.account_owner',
+            'payments.iban',
+            'payments.bic',
+            'payments.card_type',
+            'payments.credit_card_owner',
+            'payments.credit_card_number',
+            'payments.credit_card_expiry',
+            'payments.credit_card_cvc',
+            'communication.tel_direct',
+            'communication.tel_mobile',
+            'communication.tel_secretary',
+            'communication.fax_number',
+            'communication.email',
+            'additional.important',
+            'additional.name_of_secretary',
+            'additional.date_of_birth',
+            'additional.evaluation',
+            'status.price_per_bottle_max',
+            'status.items',
+            'cancellation.canceling_reasons',
         ];
     }
 
     public function checkMeta(): void
     {
-       foreach($this->dataFields() as $field) {
-           $type = explode(".", $field)[0];
-           $key = explode(".", $field)[1];
-            if (!$this->accountMeta()->where('type', $type)->where('key', $key)->exists()) {
+        foreach ($this->dataFields() as $field) {
+            $type = explode('.', $field)[0];
+            $key = explode('.', $field)[1];
+            if (! $this->accountMeta()->where('type', $type)->where('key', $key)->exists()) {
                 $this->accountMeta()->create([
                     'type' => $type,
                     'key' => $key,
@@ -171,34 +168,20 @@ class Account extends Authenticatable implements HasAvatar, HasMedia, FilamentUs
         }
     }
 
-    /**
-     * @return Collection
-     */
     public function loadData(): Collection
     {
-        return $this->accountMeta()->whereIn('type', collect($this->dataFields())->map(fn($item)=>str($item)->explode('.')[0])->toArray())->get();
+        return $this->accountMeta()->whereIn('type', collect($this->dataFields())->map(fn ($item) => str($item)->explode('.')[0])->toArray())->get();
     }
 
-
-    /**
-     * @param string $key
-     * @return mixed
-     */
     public function meta(
         string $key
-    ): mixed
-    {
-       return $this->accountMeta()->where('key', $key)->first()?->key_value;
+    ): mixed {
+        return $this->accountMeta()->where('key', $key)->first()?->key_value;
     }
 
-    /**
-     * @param string $key
-     * @return mixed
-     */
     public function metaArray(
         string $key
-    ): mixed
-    {
+    ): mixed {
         return $this->accountMeta()->where('key', $key)->first()?->value;
     }
 }

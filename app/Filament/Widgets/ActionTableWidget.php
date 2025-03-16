@@ -5,8 +5,6 @@ namespace App\Filament\Widgets;
 use App\Models\Account;
 use App\Models\AccountMeta;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Notifications\Notification;
@@ -16,7 +14,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class ActionTableWidget extends BaseWidget
 {
-    protected static ?string $heading = "Actions";
+    protected static ?string $heading = 'Actions';
 
     protected int | string | array $columnSpan = 'full';
 
@@ -37,7 +35,7 @@ class ActionTableWidget extends BaseWidget
                                 'call' => 'success',
                                 'event' => 'warning',
                             ])
-                            ->default("call")
+                            ->default('call')
                             ->inline()
                             ->options([
                                 'call' => 'Call',
@@ -54,7 +52,7 @@ class ActionTableWidget extends BaseWidget
                                 'ok' => 'heroicon-o-check-circle',
                                 'no-response' => 'heroicon-o-x-circle',
                             ])
-                            ->default("ok")
+                            ->default('ok')
                             ->inline()
                             ->options([
                                 'ok' => 'Ok',
@@ -67,7 +65,7 @@ class ActionTableWidget extends BaseWidget
                     ])
                     ->action(function (array $data): void {
                         $account = Account::query()->find(session('model_id'));
-                        if($account){
+                        if ($account) {
                             $account->accountMeta()->create([
                                 'type' => 'action',
                                 'user_id' => auth()->user()->id,
@@ -83,7 +81,7 @@ class ActionTableWidget extends BaseWidget
                             ->body('Data saved successfully!')
                             ->success()
                             ->send();
-                    })
+                    }),
             ])
             ->query(
                 AccountMeta::query()->where('type', 'action')->where('account_id', session('model_id'))
@@ -98,12 +96,12 @@ class ActionTableWidget extends BaseWidget
                 Tables\Columns\TextColumn::make('time'),
                 Tables\Columns\TextColumn::make('key')
                     ->formatStateUsing(fn ($state): string => str($state)->title())
-                    ->color(fn($record) => match ($record->key) {
+                    ->color(fn ($record) => match ($record->key) {
                         'call' => 'success',
                         'event' => 'warning',
                         default => 'primary'
                     })
-                    ->icon(fn($record) => match ($record->key){
+                    ->icon(fn ($record) => match ($record->key) {
                         'call' => 'bxs-phone-call',
                         'event' => 'heroicon-o-exclamation-circle',
                         default => 'heroicon-o-information-circle'
@@ -111,12 +109,12 @@ class ActionTableWidget extends BaseWidget
                     ->badge(),
                 Tables\Columns\TextColumn::make('response')
                     ->formatStateUsing(fn ($state): string => str($state)->title())
-                    ->color(fn($record) => match ($record->response) {
+                    ->color(fn ($record) => match ($record->response) {
                         'ok' => 'success',
                         'no-response' => 'danger',
                         default => 'primary'
                     })
-                    ->icon(fn($record) => match ($record->response){
+                    ->icon(fn ($record) => match ($record->response) {
                         'ok' => 'heroicon-o-check-circle',
                         'no-response' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-information-circle'

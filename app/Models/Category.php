@@ -10,7 +10,7 @@ class Category extends Model
         'name',
         'description',
         'color',
-        'icon'
+        'icon',
     ];
 
     public function products()

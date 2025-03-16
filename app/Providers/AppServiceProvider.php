@@ -43,9 +43,9 @@ class AppServiceProvider extends ServiceProvider
                             Type::make('lead')
                                 ->name('Lead')
                                 ->icon('heroicon-o-user-group')
-                                ->color('#09d414')
-                        ])
-                ])
+                                ->color('#09d414'),
+                        ]),
+                ]),
         ]);
         FilamentDocs::register([
             DocsVar::make('$ADDRESS')

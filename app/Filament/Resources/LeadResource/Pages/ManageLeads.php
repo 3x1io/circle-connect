@@ -14,9 +14,10 @@ class ManageLeads extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
-                ->mutateFormDataUsing(function(array $data){
+                ->mutateFormDataUsing(function (array $data) {
                     $data['type'] = 'lead';
-                    $data['username'] = $data['email']??$data['phone'];
+                    $data['username'] = $data['email'] ?? $data['phone'];
+
                     return $data;
                 }),
         ];
