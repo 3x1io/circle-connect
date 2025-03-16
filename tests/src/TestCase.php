@@ -2,8 +2,6 @@
 
 namespace Tests;
 
-use App\Providers\AppServiceProvider;
-use App\Providers\Filament\AdminPanelProvider;
 use App\Providers\VoltServiceProvider;
 use BezhanSalleh\FilamentShield\FilamentShieldServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;

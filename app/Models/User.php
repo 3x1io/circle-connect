@@ -15,8 +15,8 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
-    use HasRoles;
 
+    use HasRoles;
     use InteractsWithLanguages;
     use InteractsWithNotifications;
     use Notifiable;
