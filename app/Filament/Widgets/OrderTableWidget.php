@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Pages\PrintDocument;
 use App\Models\Order;
 use App\Models\Product;
 use Filament\Forms;
@@ -9,6 +10,7 @@ use Filament\Notifications\Notification;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use TomatoPHP\FilamentDocs\Filament\Actions\Table\PrintAction;
 
 class OrderTableWidget extends BaseWidget
 {
@@ -35,10 +37,15 @@ class OrderTableWidget extends BaseWidget
                     ]),
             ])
             ->actions([
-                Tables\Actions\Action::make('print')
+                PrintAction::make('print')
                     ->icon('heroicon-s-printer')
-                    ->openUrlInNewTab()
-                    ->iconButton(),
+                    ->title(fn($record) => $record->uuid)
+                    ->route(
+                        fn ($record) => PrintDocument::getUrl() . '?record=' . $record->id. '&type=order',
+                    )
+                    ->color('warning')
+                    ->iconButton()
+                    ->tooltip(trans('filament-docs::messages.documents.actions.print')),
                 Tables\Actions\Action::make('edit')
                     ->fillForm(fn ($record) => array_merge($record->toArray(), ['items' => $record->items->toArray()]))
                     ->form([
@@ -222,6 +229,8 @@ class OrderTableWidget extends BaseWidget
                 ]),
             ])
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->description(fn ($record) => $record->created_at->diffForHumans())
                     ->dateTime()

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Filament\Widgets\ActionTableWidget;
 use App\Filament\Widgets\DocumentTableWidget;
+use App\Filament\Widgets\LeadStateWidget;
 use App\Filament\Widgets\OrderTableWidget;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('action.table', ActionTableWidget::class);
         Livewire::component('order.table', OrderTableWidget::class);
         Livewire::component('document.table', DocumentTableWidget::class);
+        Livewire::component('lead.state', LeadStateWidget::class);
 
         FilamentTypes::register([
             TypeFor::make('accounts')

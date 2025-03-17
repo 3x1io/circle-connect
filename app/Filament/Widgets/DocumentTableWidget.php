@@ -2,9 +2,12 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Pages\PrintDocument;
+use Filament\Forms\Form;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use TomatoPHP\FilamentDocs\Filament\Actions\Table\PrintAction;
 use TomatoPHP\FilamentDocs\Filament\Resources\DocumentResource;
 use TomatoPHP\FilamentDocs\Filament\Resources\DocumentTemplateResource;
 use TomatoPHP\FilamentDocs\Models\Document;
@@ -40,6 +43,24 @@ class DocumentTableWidget extends BaseWidget
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->actions([
+                PrintAction::make('print')
+                    ->icon('heroicon-s-printer')
+                    ->title(fn($record) => $record->documentTemplate->name . '#'. $record->id)
+                    ->route(
+                        fn ($record) => PrintDocument::getUrl() . '?record=' . $record->id. '&type=document',
+                    )
+                    ->color('warning')
+                    ->iconButton()
+                    ->tooltip(trans('filament-docs::messages.documents.actions.print')),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->form(fn(Form $form) => DocumentResource::form($form))
+                    ->tooltip(__('filament-actions::edit.single.label')),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip(__('filament-actions::delete.single.label')),
             ])
             ->query(
                 Document::query()
