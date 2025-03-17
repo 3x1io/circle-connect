@@ -3,8 +3,8 @@
 namespace App\Filament\Pages\Traits;
 
 use App\Models\Account;
-use Filament\Forms\Form;
 use Filament\Forms;
+use Filament\Forms\Form;
 
 trait HasSearchForm
 {
@@ -35,7 +35,6 @@ trait HasSearchForm
         }
     }
 
-
     public function accountSearchForm(Form $form): Form
     {
         return $form->statePath('search')
@@ -51,7 +50,7 @@ trait HasSearchForm
                             $this->searchAction();
                         }))
                     ->placeholder('Search by phone or email')
-                    ->required()
+                    ->required(),
             ]);
     }
 

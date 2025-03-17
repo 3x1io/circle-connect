@@ -39,9 +39,9 @@ class OrderTableWidget extends BaseWidget
             ->actions([
                 PrintAction::make('print')
                     ->icon('heroicon-s-printer')
-                    ->title(fn($record) => $record->uuid)
+                    ->title(fn ($record) => $record->uuid)
                     ->route(
-                        fn ($record) => PrintDocument::getUrl() . '?record=' . $record->id. '&type=order',
+                        fn ($record) => PrintDocument::getUrl() . '?record=' . $record->id . '&type=order',
                     )
                     ->color('warning')
                     ->iconButton()

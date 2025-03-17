@@ -2,16 +2,12 @@
 
 namespace App\Filament\Pages\Traits;
 
-use App\Models\Account;
-use Filament\Actions\Action;
-use Filament\Forms\Form;
 use Filament\Forms;
+use Filament\Forms\Form;
 
 trait HasAccountForm
 {
     public array $data = [];
-
-
 
     public function accountForm(Form $form): Form
     {
@@ -288,15 +284,11 @@ trait HasAccountForm
                     Forms\Components\Actions\Action::make('saveAction')
                         ->action(function () {
                             $this->save();
-                        })
-                ])
+                        }),
+                ]),
             ]);
     }
 
-
-    /**
-     * @return void
-     */
     public function save(): void
     {
         $this->accountForm->validate();
