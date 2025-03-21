@@ -201,7 +201,7 @@ trait HasHeaderActions
             $collectAddress .= '<div>' . $record->meta('street') . ' ' . $record->meta('number') . '</div>';
             $collectAddress .= '<div>' . $record->meta('postcode') . ' ' . $record->meta('city') . '</div>';
 
-            $collectName .= $record->meta('letter_salutation') . ' ' . $record->meta('first_name');
+            $collectName .= $record->meta('letter_salutation') . ' ' . $record->meta('last_name');
 
             $body = str(DocumentTemplate::query()->find($item->id)->body)
                 ->replace('$ADDRESS', $collectAddress)
