@@ -52,10 +52,12 @@
 
             .header {
                 top: 0;
+                padding-left: 50px !important;
             }
 
             .footer {
                 bottom: 0;
+                padding-left: 50px !important;
             }
 
             .content {
@@ -71,7 +73,7 @@
     </style>
 </head>
 
-<body>
+<body style="padding-left: 40px !important;">
 <div class="header mb-4">
     <div class="flex flex-col justify-end items-end border-black">
         <div class="flex justify-end p-4">
