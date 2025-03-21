@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace App\Filament\App\Pages;
 
 use App\Enums\AccountStatus;
 use App\Filament\Pages\Traits\CanLoadAccount;
@@ -43,6 +43,44 @@ class Dashboard extends \Filament\Pages\Dashboard implements HasActions, HasForm
     use HasEchoEvents;
     use CanLoadAccount;
     use HasHeaderActions;
+
+    public function mount()
+    {
+        $this->form->fill();
+
+        if (request()->has('search') && ! empty(request()->get('search'))) {
+            $this->getAccount = Account::query()
+                ->where('phone', 'LIKE', '%' . request()->get('search') . '%')
+                ->whereHas('teams', function (Builder $query) {
+                    $query->where('team_id', filament()->getTenant()->id);
+                })
+                ->orWhere('email', 'LIKE', '%' . request()->get('search') . '%')
+                ->whereHas('teams', function (Builder $query) {
+                    $query->where('team_id', filament()->getTenant()->id);
+                })
+                ->first();
+
+            if ($this->getAccount) {
+                $this->loadAccount();
+            } else {
+                $this->getAccount = Account::query()->create([
+                    'phone' => request()->get('search'),
+                    'username' => request()->get('search'),
+                    'type' => 'lead',
+                ]);
+
+                session()->put('model_id', $this->getAccount->id);
+                session()->put('model_type', get_class($this->getAccount));
+            }
+        }
+    }
+
+    protected function getEloquentQuery(): Builder
+    {
+        return static::$model::query()->whereHas('teams', function (Builder $query) {
+            $query->where('team_id', filament()->getTenant()->id);
+        });
+    }
 
     protected static string $view = 'filament.pages.dashboard';
 

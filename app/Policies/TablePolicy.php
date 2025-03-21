@@ -3,8 +3,8 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use TomatoPHP\FilamentPlugins\Models\Table;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TablePolicy
 {

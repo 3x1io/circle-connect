@@ -28,14 +28,6 @@
                 @include(static::$scriptsView)
             </div>
         </div>
-
-        @unless($disableEditModal)
-            <x-filament-kanban::edit-record-modal/>
-        @endunless
     @endif
-
     <x-filament-actions::modals />
-
-
-
 </x-filament-panels::page>

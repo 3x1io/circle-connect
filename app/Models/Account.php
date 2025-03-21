@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Jetstream\HasTeams;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 use TomatoPHP\FilamentSaasPanel\Traits\InteractsWithTenant;
 
 /**
@@ -162,7 +163,7 @@ class Account extends Authenticatable implements FilamentUser, HasAvatar, HasMed
                 $this->accountMeta()->create([
                     'type' => $type,
                     'key' => $key,
-                    'user_id' => auth()->user()->id,
+                    'user_id' => auth('accounts')->user() ? User::first()->id : auth()->user()->id,
                 ]);
             }
         }
@@ -183,5 +184,10 @@ class Account extends Authenticatable implements FilamentUser, HasAvatar, HasMed
         string $key
     ): mixed {
         return $this->accountMeta()->where('key', $key)->first()?->value;
+    }
+
+    public function team()
+    {
+        return $this->teams();
     }
 }

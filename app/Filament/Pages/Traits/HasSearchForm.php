@@ -57,6 +57,6 @@ trait HasSearchForm
 
     public function searchAction(): void
     {
-        redirect(url('/admin') . '?search=' . $this->accountSearchForm->getState()['search']);
+        redirect(self::getUrl() . '?search=' . $this->accountSearchForm->getState()['search']);
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Filament\Pages\Traits;
 
 use App\Enums\AccountStatus;
+use App\Filament\Pages\Dashboard;
 use App\Models\Account;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -23,6 +25,84 @@ trait HasKanbanBoard
     protected static string $recordTitleAttribute = 'name';
 
     protected static string $recordStatusAttribute = 'type';
+
+
+    public ?array $editModalFormState = [];
+
+    public null | int | string $editModalRecordId = null;
+
+    protected string $editModalTitle = 'Edit Record';
+
+    protected bool $editModalSlideOver = false;
+
+    protected string $editModalWidth = '2xl';
+
+    protected string $editModalSaveButtonLabel = 'Save';
+
+    protected string $editModalCancelButtonLabel = 'Cancel';
+
+
+    public function recordClicked(int | string $recordId, array $data): void
+    {
+
+        $account = Account::query()->find($recordId);
+        if($account){
+            $this->redirect(self::getUrl().'?search=' . $account->phone);
+        }
+    }
+
+    public function editModalFormSubmitted(): void
+    {
+        $this->editRecord($this->editModalRecordId, $this->form->getState(), $this->editModalFormState);
+
+        $this->editModalRecordId = null;
+        $this->form->fill();
+
+        $this->dispatch('close-modal', id: 'kanban--edit-record-modal');
+    }
+
+
+    protected function getEditModalRecordData(int | string $recordId, array $data): array
+    {
+        return $this->getEloquentQuery()->find($recordId)->toArray();
+    }
+
+    protected function editRecord(int | string $recordId, array $data, array $state): void
+    {
+        $this->getEloquentQuery()->find($recordId)->update($data);
+    }
+
+    protected function getEditModalFormSchema(null | int | string $recordId): array
+    {
+        return [
+            TextInput::make(static::$recordTitleAttribute),
+        ];
+    }
+
+    protected function getEditModalTitle(): string
+    {
+        return $this->editModalTitle;
+    }
+
+    protected function getEditModalSlideOver(): bool
+    {
+        return $this->editModalSlideOver;
+    }
+
+    protected function getEditModalWidth(): string
+    {
+        return $this->editModalWidth;
+    }
+
+    protected function getEditModalSaveButtonLabel(): string
+    {
+        return $this->editModalSaveButtonLabel;
+    }
+
+    protected function getEditModalCancelButtonLabel(): string
+    {
+        return $this->editModalCancelButtonLabel;
+    }
 
     protected function statuses(): Collection
     {
@@ -79,4 +159,6 @@ trait HasKanbanBoard
     {
         return static::$model::query();
     }
+
+
 }

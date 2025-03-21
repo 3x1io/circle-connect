@@ -7,8 +7,10 @@ use App\Filament\Resources\CategoryResource;
 use App\Filament\Resources\CustomerResource;
 use App\Filament\Resources\DocumentTemplateResource;
 use App\Filament\Resources\EmployeeResource;
+use App\Filament\Resources\LeadGroupsResource;
 use App\Filament\Resources\LeadResource;
 use App\Filament\Resources\ProductResource;
+use App\Filament\Resources\TeamResource;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
@@ -130,6 +132,7 @@ class AdminPanelProvider extends PanelProvider
             $builder->items(CategoryResource::getNavigationItems());
             $builder->items(ProductResource::getNavigationItems());
             $builder->items(EmployeeResource::getNavigationItems());
+            $builder->items(LeadGroupsResource::getNavigationItems());
             $builder->items(DocumentTemplateResource::getNavigationItems());
 
             return $builder;

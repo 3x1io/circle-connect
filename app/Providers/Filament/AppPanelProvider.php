@@ -2,10 +2,14 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\App\Pages\Dashboard;
+use App\Filament\App\Resources\LeadResource;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationBuilder;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -17,6 +21,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use TomatoPHP\FilamentAccounts\FilamentAccountsPlugin;
 use TomatoPHP\FilamentSaasPanel\FilamentSaasPanelPlugin;
 
 class AppPanelProvider extends PanelProvider
@@ -26,13 +31,31 @@ class AppPanelProvider extends PanelProvider
         $panel
             ->id('app')
             ->path('app')
+            ->databaseNotifications()
+            ->unsavedChangesAlerts()
+            ->sidebarCollapsibleOnDesktop()
+            ->viteTheme('resources/css/app.css')
             ->colors([
-                'primary' => Color::Amber,
+                'danger' => Color::Red,
+                'gray' => Color::Slate,
+                'info' => Color::Blue,
+                'primary' => Color::Rose,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
             ])
+            ->favicon(asset('favicon.ico'))
+            ->brandName('Circle Connect')
+            ->brandLogo(asset('logo.png'))
+            ->brandLogoHeight('80px')
+            ->font(
+                'Readex Pro',
+                provider: GoogleFontProvider::class,
+            )
+            ->profile()
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class
             ])
             ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\\Filament\\App\\Widgets')
             ->widgets([
@@ -71,6 +94,18 @@ class AppPanelProvider extends PanelProvider
                 ->registration()
                 ->useOTPActivation()
         );
+
+        $panel->plugin(
+            FilamentAccountsPlugin::make()
+        );
+
+        $panel->navigation(function (NavigationBuilder $builder) {
+            $builder->items(Dashboard::getNavigationItems());
+            $builder->items(LeadResource::getNavigationItems());
+
+            return $builder;
+        });
+
 
         return $panel;
     }

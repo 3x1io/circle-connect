@@ -26,6 +26,9 @@ class Team extends JetstreamTeam implements HasAvatar, HasMedia
         'account_id',
         'name',
         'personal_team',
+        'color',
+        'icon',
+        'description'
     ];
 
     /**
