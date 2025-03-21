@@ -24,6 +24,7 @@ trait HasSearchForm
                 $this->loadAccount();
             } else {
                 $this->getAccount = Account::query()->create([
+                    'name' => request()->get('search'),
                     'phone' => request()->get('search'),
                     'username' => request()->get('search'),
                     'type' => 'lead',
