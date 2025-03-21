@@ -1,6 +1,6 @@
 <div>
     @if($this->type === 'document')
-        <div class="prose max-w-full">
+        <div class="max-w-full">
             {!! $this->record->body !!}
         </div>
     @else

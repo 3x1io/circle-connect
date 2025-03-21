@@ -196,10 +196,10 @@ trait HasHeaderActions
             $collectAddress = '';
             $collectName = '';
 
-            $collectAddress .= $record->meta('company') . "\n";
-            $collectAddress .= $record->meta('letter_salutation') . ' ' . $record->meta('first_name') . ' ' . $record->meta('last_name') . "\n";
-            $collectAddress .= $record->meta('street') . ' ' . $record->meta('number') . "\n";
-            $collectAddress .= $record->meta('postcode') . ' ' . $record->meta('city') . "\n";
+            $collectAddress .= '<div>'.$record->meta('company') . '</div>';
+            $collectAddress .= '<div>'.$record->meta('letter_salutation') . ' ' . $record->meta('first_name') . ' ' . $record->meta('last_name') . '</div>';
+            $collectAddress .= '<div>'.$record->meta('street') . ' ' . $record->meta('number') . '</div>';
+            $collectAddress .= '<div>'.$record->meta('postcode') . ' ' . $record->meta('city') . '</div>';
 
             $collectName .= $record->meta('letter_salutation') . ' ' . $record->meta('first_name');
 
