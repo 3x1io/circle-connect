@@ -50,7 +50,7 @@
                 @endif
             </div>
         </div>
-        <div class="border border-black mt-1"></div>
+        <div class="border-2 border-black mt-1"></div>
         <div class="flex justify-between py-1">
             <div>
                 Lieferdatum: <b>sofort</b>
@@ -62,7 +62,7 @@
                 Datum:  <b>{{$this->record->created_at->format('d.m.Y')}}</b>
             </div>
         </div>
-        <div class="border border-black mb-1"></div>
+        <div class="border-2 border-black mb-1"></div>
         <div class="flex flex-col">
             <div class="flex justify-between">
                 <div class="flex justify-start gap-2">
@@ -182,22 +182,22 @@
             Unsere geltenden AGB und darin enthaltene Informationen zum Widerrufsrecht erhalten Sie auf www.chateau-royal.de oder per Fax.
         </p>
         @if($this->record->items()->count() > 5)
-            <table class="border border-black w-full mt-4">
+            <table class="border-2 border-black w-full mt-4">
             <thead>
             <tr>
-                <th class="border border-black p-1">Artikel</th>
-                <th class="border border-black p-1">Menge</th>
-                <th class="border border-black p-1">Einzelpreis €</th>
-                <th class="border border-black p-1">Gesamtpreis €</th>
+                <th class="border-2 border-black p-1">Artikel</th>
+                <th class="border-2 border-black p-1">Menge</th>
+                <th class="border-2 border-black p-1">Einzelpreis €</th>
+                <th class="border-2 border-black p-1">Gesamtpreis €</th>
             </tr>
             </thead>
             <tbody>
             @foreach($this->record->items()->limit(6)->get() as $item)
-                <tr class="border border-black">
-                    <td class="border border-black p-1">{{ $item->item }}</td>
-                    <td class="border border-black p-1">{{ $item->quantity }}</td>
-                    <td class="border border-black p-1">{{ number_format($item->price, 2) }}€</td>
-                    <td class="border border-black p-1"><b>{{ number_format($item->total, 2) }}€</b></td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1">{{ $item->item }}</td>
+                    <td class="border-2 border-black p-1">{{ $item->quantity }}</td>
+                    <td class="border-2 border-black p-1">{{ number_format($item->price, 2) }}€</td>
+                    <td class="border-2 border-black p-1"><b>{{ number_format($item->total, 2) }}€</b></td>
                 </tr>
             @endforeach
             </tbody>
@@ -211,78 +211,78 @@
             <br />
             <br />
             <br />
-            <table class="border border-black w-full mt-4">
+            <table class="border-2 border-black w-full mt-4">
                 <thead>
                 <tr>
-                    <th class="border border-black p-1">Artikel</th>
-                    <th class="border border-black p-1">Menge</th>
-                    <th class="border border-black p-1">Einzelpreis €</th>
-                    <th class="border border-black p-1">Gesamtpreis €</th>
+                    <th class="border-2 border-black p-1">Artikel</th>
+                    <th class="border-2 border-black p-1">Menge</th>
+                    <th class="border-2 border-black p-1">Einzelpreis €</th>
+                    <th class="border-2 border-black p-1">Gesamtpreis €</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($this->record->items()->offset(6)->limit(10)->get() as $item)
-                    <tr class="border border-black">
-                        <td class="border border-black p-1">{{ $item->item }}</td>
-                        <td class="border border-black p-1">{{ $item->quantity }}</td>
-                        <td class="border border-black p-1">{{ number_format($item->price, 2) }}€</td>
-                        <td class="border border-black p-1"><b>{{ number_format($item->total, 2) }}€</b></td>
+                    <tr class="border-2 border-black">
+                        <td class="border-2 border-black p-1">{{ $item->item }}</td>
+                        <td class="border-2 border-black p-1">{{ $item->quantity }}</td>
+                        <td class="border-2 border-black p-1">{{ number_format($item->price, 2) }}€</td>
+                        <td class="border-2 border-black p-1"><b>{{ number_format($item->total, 2) }}€</b></td>
                     </tr>
                 @endforeach
-                <tr class="border border-black">
-                    <td class="border border-black p-1">Warentransportversicherung</td>
-                    <td class="border border-black p-1">1</td>
-                    <td class="border border-black p-1">1% vom Netto</td>
-                    <td class="border border-black p-1">Freihaus</td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1">Warentransportversicherung</td>
+                    <td class="border-2 border-black p-1">1</td>
+                    <td class="border-2 border-black p-1">1% vom Netto</td>
+                    <td class="border-2 border-black p-1">Freihaus</td>
                 </tr>
-                <tr class="border border-black">
-                    <td class="border border-black p-1">Versandkosten</td>
-                    <td class="border border-black p-1">1</td>
-                    <td class="border border-black p-1">{{$this->record->shipping > 0 ? number_format($this->record->shipping, 2).'€' : '' }}</td>
-                    <td class="border border-black p-1">Freihaus</td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1">Versandkosten</td>
+                    <td class="border-2 border-black p-1">1</td>
+                    <td class="border-2 border-black p-1">{{$this->record->shipping > 0 ? number_format($this->record->shipping, 2).'€' : '' }}</td>
+                    <td class="border-2 border-black p-1">Freihaus</td>
                 </tr>
-                <tr class="border border-black">
-                    <td class="border border-black p-1" colspan="3">Gesamt</td>
-                    <td class="border border-black p-1" ><b>{{number_format($this->record->total, 2)}}€</b></td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1" colspan="3">Gesamt</td>
+                    <td class="border-2 border-black p-1" ><b>{{number_format($this->record->total, 2)}}€</b></td>
                 </tr>
 
                 </tbody>
             </table>
         @else
-            <table class="border border-black w-full mt-4">
+            <table class="border-2 border-black w-full mt-4">
                 <thead>
                 <tr>
-                    <th class="border border-black p-1">Artikel</th>
-                    <th class="border border-black p-1">Menge</th>
-                    <th class="border border-black p-1">Einzelpreis €</th>
-                    <th class="border border-black p-1">Gesamtpreis €</th>
+                    <th class="border-2 border-black p-1">Artikel</th>
+                    <th class="border-2 border-black p-1">Menge</th>
+                    <th class="border-2 border-black p-1">Einzelpreis €</th>
+                    <th class="border-2 border-black p-1">Gesamtpreis €</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($this->record->items as $item)
-                    <tr class="border border-black">
-                        <td class="border border-black p-1">{{ $item->item }}</td>
-                        <td class="border border-black p-1">{{ $item->quantity }}</td>
-                        <td class="border border-black p-1">{{ number_format($item->price, 2) }}€</td>
-                        <td class="border border-black p-1"><b>{{ number_format($item->total, 2) }}€</b></td>
+                    <tr class="border-2 border-black">
+                        <td class="border-2 border-black p-1">{{ $item->item }}</td>
+                        <td class="border-2 border-black p-1">{{ $item->quantity }}</td>
+                        <td class="border-2 border-black p-1">{{ number_format($item->price, 2) }}€</td>
+                        <td class="border-2 border-black p-1"><b>{{ number_format($item->total, 2) }}€</b></td>
                     </tr>
                 @endforeach
 
-                <tr class="border border-black">
-                    <td class="border border-black p-1">Warentransportversicherung</td>
-                    <td class="border border-black p-1">1</td>
-                    <td class="border border-black p-1">1% vom Netto</td>
-                    <td class="border border-black p-1">Freihaus</td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1">Warentransportversicherung</td>
+                    <td class="border-2 border-black p-1">1</td>
+                    <td class="border-2 border-black p-1">1% vom Netto</td>
+                    <td class="border-2 border-black p-1">Freihaus</td>
                 </tr>
-                <tr class="border border-black">
-                    <td class="border border-black p-1">Versandkosten</td>
-                    <td class="border border-black p-1">1</td>
-                    <td class="border border-black p-1">{{$this->record->shipping > 0 ? number_format($this->record->shipping, 2).'€' : '' }}</td>
-                    <td class="border border-black p-1">Freihaus</td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1">Versandkosten</td>
+                    <td class="border-2 border-black p-1">1</td>
+                    <td class="border-2 border-black p-1">{{$this->record->shipping > 0 ? number_format($this->record->shipping, 2).'€' : '' }}</td>
+                    <td class="border-2 border-black p-1">Freihaus</td>
                 </tr>
-                <tr class="border border-black">
-                    <td class="border border-black p-1" colspan="3">Gesamt</td>
-                    <td class="border border-black p-1" ><b>{{number_format($this->record->total, 2)}}€</b></td>
+                <tr class="border-2 border-black">
+                    <td class="border-2 border-black p-1" colspan="3">Gesamt</td>
+                    <td class="border-2 border-black p-1" ><b>{{number_format($this->record->total, 2)}}€</b></td>
                 </tr>
                 </tbody>
             </table>
