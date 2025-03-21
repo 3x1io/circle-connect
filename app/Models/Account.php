@@ -15,7 +15,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Jetstream\HasTeams;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Permission\Traits\HasRoles;
 use TomatoPHP\FilamentSaasPanel\Traits\InteractsWithTenant;
 
 /**

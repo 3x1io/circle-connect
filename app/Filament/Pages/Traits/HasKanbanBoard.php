@@ -3,7 +3,6 @@
 namespace App\Filament\Pages\Traits;
 
 use App\Enums\AccountStatus;
-use App\Filament\Pages\Dashboard;
 use App\Models\Account;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,7 +26,6 @@ trait HasKanbanBoard
 
     protected static string $recordStatusAttribute = 'type';
 
-
     public ?array $editModalFormState = [];
 
     public null | int | string $editModalRecordId = null;
@@ -42,13 +40,12 @@ trait HasKanbanBoard
 
     protected string $editModalCancelButtonLabel = 'Cancel';
 
-
     public function recordClicked(int | string $recordId, array $data): void
     {
 
         $account = Account::query()->find($recordId);
-        if($account){
-            $this->redirect(self::getUrl().'?search=' . $account->phone);
+        if ($account) {
+            $this->redirect(self::getUrl() . '?search=' . $account->phone);
         }
     }
 
@@ -61,7 +58,6 @@ trait HasKanbanBoard
 
         $this->dispatch('close-modal', id: 'kanban--edit-record-modal');
     }
-
 
     protected function getEditModalRecordData(int | string $recordId, array $data): array
     {
@@ -160,6 +156,4 @@ trait HasKanbanBoard
     {
         return static::$model::query();
     }
-
-
 }
