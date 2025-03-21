@@ -19,17 +19,13 @@ trait HasEchoEvents
         }
     }
 
-
-    /**
-     * @return Action
-     */
     public function redirectToCallAction(): Action
     {
         return Action::make('redirectToCallAction')
             ->label('Accept')
             ->icon('heroicon-s-check-circle')
             ->color('success')
-            ->action(function(){
+            ->action(function () {
                 $this->getAccount = Account::query()
                     ->where('phone', 'LIKE', '%' . $this->eventPhone . '%')
                     ->orWhere('name', 'LIKE', '%' . $this->eventPhone . '%')
