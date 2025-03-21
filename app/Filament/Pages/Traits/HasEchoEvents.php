@@ -9,12 +9,24 @@ use Livewire\Attributes\On;
 trait HasEchoEvents
 {
     public ?string $eventPhone = null;
+    public ?string $eventName = null;
 
     #[On('echo:call,IncomingCall')]
     public function getCustomer($event): void
     {
         if ($event['user'] == auth()->user()->id) {
             $this->eventPhone = $event['phone'];
+            $account = Account::query()
+                ->where('phone', 'LIKE', '%' . $this->eventPhone . '%')
+                ->orWhere('name', 'LIKE', '%' . $this->eventPhone . '%')
+                ->orWhere('email', 'LIKE', '%' . $this->eventPhone . '%')
+                ->first();
+
+            if($account){
+                $this->eventName = $account->meta('letter_salutation') . ' ' . $account->meta('last_name');
+            }
+
+
             $this->dispatch('open-modal', id: 'call');
         }
     }

@@ -52,8 +52,10 @@
             Incoming Call
         </x-slot>
 
-        <div class="text-lg ">
-            <h1><span class="font-bold">{{ $this->eventPhone }}</span> Calling ...</h1>
+        <div class=" flex flex-col">
+            <div class="text-lg font-bold">{{ $this->eventName }}</div>
+            <div class="text-md">{{ $this->eventPhone }}</div>
+            <h1 class="text-sm">Calling ...</h1>
         </div>
 
         <x-slot name="footerActions">
