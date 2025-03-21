@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 trait HasEchoEvents
 {
     public ?string $eventPhone = null;
+
     public ?string $eventName = null;
 
     #[On('echo:call,IncomingCall')]
@@ -22,10 +23,9 @@ trait HasEchoEvents
                 ->orWhere('email', 'LIKE', '%' . $this->eventPhone . '%')
                 ->first();
 
-            if($account){
+            if ($account) {
                 $this->eventName = $account->meta('letter_salutation') . ' ' . $account->meta('last_name');
             }
-
 
             $this->dispatch('open-modal', id: 'call');
         }
