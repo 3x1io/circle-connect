@@ -4,7 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\Account;
 use App\Models\AccountMeta;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
@@ -151,7 +150,7 @@ class ActionTableWidget extends BaseWidget
                             ->body('Data saved successfully!')
                             ->success()
                             ->send();
-                    })
+                    }),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('date')->sortable(),
