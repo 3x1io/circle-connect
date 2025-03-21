@@ -21,8 +21,8 @@
         </form>
 
         <x-filament-widgets::widgets :widgets="[
-            \App\Filament\Widgets\DocumentTableWidget::class,
             \App\Filament\Widgets\ActionTableWidget::class,
+            \App\Filament\Widgets\DocumentTableWidget::class,
             \App\Filament\Widgets\OrderTableWidget::class,
         ]" />
     @else
