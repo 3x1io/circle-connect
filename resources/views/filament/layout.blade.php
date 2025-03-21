@@ -84,6 +84,13 @@
         </div>
     </div>
 </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <div class="content p-6" style="background-image: url('{{ url('background.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: center;">
     {{ $slot }}
 </div>

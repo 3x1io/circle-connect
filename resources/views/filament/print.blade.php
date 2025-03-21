@@ -4,13 +4,6 @@
             {!! $this->record->body !!}
         </div>
     @else
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         @if($this->record->status === 'subscription')
             <div class="text-center text-lg font-bold">
                 <h1>Teilnahme an der</h1>
