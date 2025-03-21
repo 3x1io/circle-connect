@@ -55,14 +55,14 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Red,
                 'gray' => Color::Slate,
                 'info' => Color::Blue,
-                'primary' => Color::Orange,
+                'primary' => Color::Rose,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
             ->favicon(asset('favicon.ico'))
             ->brandName('Circle Connect')
             ->brandLogo(asset('logo.png'))
-            ->brandLogoHeight('80px')
+            ->brandLogoHeight('40px')
             ->font(
                 'Readex Pro',
                 provider: GoogleFontProvider::class,

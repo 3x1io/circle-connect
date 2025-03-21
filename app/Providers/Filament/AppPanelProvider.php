@@ -45,7 +45,7 @@ class AppPanelProvider extends PanelProvider
             ->favicon(asset('favicon.ico'))
             ->brandName('Circle Connect')
             ->brandLogo(asset('logo.png'))
-            ->brandLogoHeight('80px')
+            ->brandLogoHeight('40px')
             ->font(
                 'Readex Pro',
                 provider: GoogleFontProvider::class,
