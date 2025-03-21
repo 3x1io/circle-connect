@@ -35,4 +35,9 @@ class IncomingCall implements ShouldBroadcast
             new Channel('call'),
         ];
     }
+
+    public function broadcastAs(): string
+    {
+        return 'server.call';
+    }
 }

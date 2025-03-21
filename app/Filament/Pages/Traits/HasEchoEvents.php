@@ -7,7 +7,7 @@ use Livewire\Attributes\On;
 
 trait HasEchoEvents
 {
-    #[On('echo:call,App\\Events\\IncomingCall')]
+    #[On('echo:call,server.call')]
     public function getCustomer($event): void
     {
         if ($event['user'] == auth()->user()->id) {
