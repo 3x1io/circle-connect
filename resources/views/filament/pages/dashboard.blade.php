@@ -46,4 +46,18 @@
     @endif
 
     <x-filament-actions::modals />
+
+    <x-filament::modal id="call">
+        <x-slot name="heading">
+            Incoming Call
+        </x-slot>
+
+        <div class="text-lg ">
+            <h1><span class="font-bold">{{ $this->eventPhone }}</span> Calling ...</h1>
+        </div>
+
+        <x-slot name="footerActions">
+            {{ $this->redirectToCallAction }}
+        </x-slot>
+    </x-filament::modal>
 </x-filament-panels::page>
