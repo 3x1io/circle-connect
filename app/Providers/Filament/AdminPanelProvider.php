@@ -10,7 +10,6 @@ use App\Filament\Resources\EmployeeResource;
 use App\Filament\Resources\LeadGroupsResource;
 use App\Filament\Resources\LeadResource;
 use App\Filament\Resources\ProductResource;
-use App\Filament\Resources\TeamResource;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;

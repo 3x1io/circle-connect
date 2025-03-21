@@ -3,17 +3,11 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeadGroupsResource\Pages;
-use App\Filament\Resources\LeadGroupsResource\RelationManagers;
-use App\Models\LeadGroups;
 use App\Models\Team;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use TomatoPHP\FilamentAccounts\Components\AccountColumn;
 use TomatoPHP\FilamentIcons\Components\IconColumn;
 use TomatoPHP\FilamentIcons\Components\IconPicker;
 use TomatoPHP\FilamentSaasPanel\Filament\Resources\TeamResource;
@@ -99,7 +93,7 @@ class LeadGroupsResource extends TeamResource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLeadGroups::route('/')
+            'index' => Pages\ListLeadGroups::route('/'),
         ];
     }
 }
