@@ -26,11 +26,11 @@ trait CanLoadAccount
 
         if ($this->getAccount->name && (empty($this->getAccount->meta('first_name')) && empty($this->getAccount->meta('last_name')))) {
             $this->getAccount->accountMeta()->where('key', 'first_name')->first()->update([
-                'key_value' => str($this->getAccount->name)->explode(' ')[0]?? '',
+                'key_value' => str($this->getAccount->name)->explode(' ')[0] ?? '',
             ]);
 
             $this->getAccount->accountMeta()->where('key', 'last_name')->first()->update([
-                'key_value' => str($this->getAccount->name)->explode(' ')[1]?? '',
+                'key_value' => str($this->getAccount->name)->explode(' ')[1] ?? '',
             ]);
         }
 
