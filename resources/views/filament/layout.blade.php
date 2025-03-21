@@ -34,6 +34,10 @@
             padding: 20px;
         }
 
+        .break {
+            page-break-before: always
+        }
+
         /* Print-specific styles */
         @media print {
             .header, .footer {

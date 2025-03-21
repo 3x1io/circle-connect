@@ -30,11 +30,13 @@ trait HasHeaderActions
                            ->required()
                            ->maxLength(255),
                        Forms\Components\Select::make('status')
+                           ->label('Type')
                            ->searchable()
                            ->preload()
                            ->options([
                                'pending' => 'Pending',
-                               'success' => 'Success',
+                               'subscription' => 'Subscription',
+                               'hospices' => 'Hospices',
                            ])
                            ->required()
                            ->default('pending'),

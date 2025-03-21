@@ -33,7 +33,8 @@ class OrderTableWidget extends BaseWidget
                     ->searchable()
                     ->options([
                         'pending' => 'Pending',
-                        'success' => 'Success',
+                        'subscription' => 'Subscription',
+                        'hospices' => 'Hospices',
                     ]),
             ])
             ->actions([
@@ -63,7 +64,8 @@ class OrderTableWidget extends BaseWidget
                                 ->preload()
                                 ->options([
                                     'pending' => 'Pending',
-                                    'success' => 'Success',
+                                    'subscription' => 'Subscription',
+                                    'hospices' => 'Hospices',
                                 ])
                                 ->required()
                                 ->default('pending'),
@@ -209,6 +211,8 @@ class OrderTableWidget extends BaseWidget
                             $order->items()->create($item);
                         }
 
+                        $order->shipping = $data['shipping'];
+                        $order->status = $data['status'];
                         $order->total = $order->items()->sum('total');
                         $order->save();
 
