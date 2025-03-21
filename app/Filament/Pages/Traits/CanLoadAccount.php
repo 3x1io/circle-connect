@@ -6,7 +6,6 @@ use App\Models\Account;
 
 trait CanLoadAccount
 {
-
     public ?Account $getAccount = null;
 
     public function loadAccount(): void

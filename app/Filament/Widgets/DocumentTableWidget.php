@@ -47,16 +47,16 @@ class DocumentTableWidget extends BaseWidget
             ->actions([
                 PrintAction::make('print')
                     ->icon('heroicon-s-printer')
-                    ->title(fn($record) => $record->documentTemplate->name . '#'. $record->id)
+                    ->title(fn ($record) => $record->documentTemplate->name . '#' . $record->id)
                     ->route(
-                        fn ($record) => PrintDocument::getUrl() . '?record=' . $record->id. '&type=document',
+                        fn ($record) => PrintDocument::getUrl() . '?record=' . $record->id . '&type=document',
                     )
                     ->color('warning')
                     ->iconButton()
                     ->tooltip(trans('filament-docs::messages.documents.actions.print')),
                 Tables\Actions\EditAction::make()
                     ->iconButton()
-                    ->form(fn(Form $form) => DocumentResource::form($form))
+                    ->form(fn (Form $form) => DocumentResource::form($form))
                     ->tooltip(__('filament-actions::edit.single.label')),
                 Tables\Actions\DeleteAction::make()
                     ->iconButton()

@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 trait HasKanbanBoard
 {
     protected static string $model = Account::class;
+
     protected static string $statusEnum = AccountStatus::class;
 
     protected static string $headerView = 'filament.components.kanban.header';
@@ -109,15 +110,15 @@ trait HasKanbanBoard
         return collect([
             [
                 'id' => 'lead',
-                'title' => 'Lead'
+                'title' => 'Lead',
             ],
             [
                 'id' => 'customer',
-                'title' => 'Customer'
+                'title' => 'Customer',
             ],
             [
                 'id' => 'inactive',
-                'title' => 'Inactive'
+                'title' => 'Inactive',
             ],
         ]);
     }
