@@ -27,6 +27,8 @@ trait HasEchoEvents
                     'time' => now()->toTimeString(),
                 ]);
                 $this->loadAccount();
+
+                $this->js('windows.location.reload()');
             }
         }
     }
